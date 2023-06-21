@@ -1,0 +1,17 @@
+name: Workflow A
+on:
+  workflow_dispatch:
+    inputs:
+      run_workflow_a:
+        description: 'Run Workflow A'
+        required: true
+        type: boolean
+
+jobs:
+  workflow_a_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      # Add your Workflow A steps here
