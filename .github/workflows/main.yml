@@ -1,0 +1,24 @@
+name: Main Workflow
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  main_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Run Workflows
+        id: run_workflows
+        run: echo "::set-output name=workflows::${{ toJSON(needs) }}"
+        
+      - name: Execute Workflow A
+        if: contains(needs.run_workflows.outputs.workflows, 'workflowA')
+        run: echo "Executing Workflow A"
+
+      - name: Execute Workflow B
+        if: contains(needs.run_workflows.outputs.workflows, 'workflowB')
+        run: echo "Executing Workflow B"
